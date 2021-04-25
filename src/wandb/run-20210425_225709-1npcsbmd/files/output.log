@@ -1,0 +1,1 @@
+ * (Tensor tensor, bool non_blocking, bool copy, *, torch.memory_format memory_format)
