@@ -1,1 +1,1 @@
-Please make to download the data in this folder as per the instructions in README. :)
+Please make to download the data in this folder as per the instructions mentioned [here](https://github.com/amaarora/imagenette-ddp). :)
