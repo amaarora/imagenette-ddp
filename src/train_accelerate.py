@@ -103,9 +103,4 @@ def train():
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--local_rank", type=int, default=0)
-    parser.add_argument("--local_world_size", type=int, default=1)
-    args = parser.parse_args()
-
     train()
