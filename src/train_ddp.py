@@ -2,16 +2,12 @@ import os
 import torch
 import argparse
 
-try:
-    import wandb
-except ModuleNotFoundError:
-    print("Please run `pip install -r requirements.txt`")
 import torchvision
 from config import Config
 import timm
 import torch.nn as nn
 from tqdm import tqdm
-from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.nn.parallel import DistributedDataParallel
 import torch.distributed as dist
 import torch.multiprocessing as mp
 
@@ -75,9 +71,6 @@ def train(local_world_size, local_rank):
         + f"world_size = {dist.get_world_size()}, n = {n}, device_ids = {device_ids}"
     )
 
-    # wandb init
-    wandb.init(project="imagenette", config=Config)
-
     # train and eval datasets
     train_dataset = torchvision.datasets.ImageFolder(
         Config["TRAIN_DATA_DIR"], transform=Config["TRAIN_AUG"]
@@ -102,7 +95,7 @@ def train(local_world_size, local_rank):
     # model
     model = timm.create_model(Config["MODEL"], pretrained=Config["PRETRAINED"])
     model = model.cuda(device_ids[0])
-    ddp_model = DDP(model, device_ids)
+    model = DistributedDataParallel(model, device_ids)
 
     # optimizer
     optimizer = torch.optim.Adam(model.parameters(), lr=Config["LR"])

@@ -9,12 +9,12 @@ Config = dict(
     TRAIN_DATA_DIR="../data/imagenette2-160/train",
     TEST_DATA_DIR="../data/imagenette2-160/val",
     DEVICE="cuda",
-    MODEL="efficientnet_b0",
+    MODEL="efficientnet_b3",
     PRETRAINED=False,
-    LR=1e-3,
+    LR=3e-4,
     EPOCHS=10,
     IMG_SIZE=IMG_SIZE,
-    BS=64,
+    BS=96,
     TRAIN_AUG=transforms.Compose(
         [
             transforms.RandomCrop(IMG_SIZE),

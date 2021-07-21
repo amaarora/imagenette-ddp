@@ -2,10 +2,6 @@ import os
 import torch
 import argparse
 
-try:
-    import wandb
-except ModuleNotFoundError:
-    print("Please run `pip install -r requirements.txt`")
 import torchvision
 from config import Config
 import timm
@@ -60,10 +56,6 @@ def eval_fn(model, eval_data_loader, epoch, accelerator):
 
 def train():
     accelerator = Accelerator()
-
-    # wandb init
-    if accelerator.is_local_main_process:
-        run = wandb.init(project="imagenette", config=Config)
 
     # train and eval datasets
     train_dataset = torchvision.datasets.ImageFolder(
